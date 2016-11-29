@@ -51,10 +51,15 @@
                         <p:outputLabel value="#{obj.id}"/>
                     </p:column>
                     <p:column headerText="Nome">
-                        <p:outputLabel value="#{obj.no}"/>
+                        <p:outputLabel value="#{obj.nome}"/>
                     </p:column>
-                    <p:column headerText="Nota">
-                        <p:outputLabel value="#{obj.nota}"/>
+                    <p:column headerText="Endereco">
+                        <p:outputLabel value="#{obj.endereco}"/>
+                    </p:column>
+                    <p:column headerText="Numero">
+                        <p:outputLabel value="#{obj.numero}"/>
+                    </p:column><p:column headerText="Cep">
+                        <p:outputLabel value="#{obj.cep}"/>
                     </p:column>
                     <p:column headerText="Ações">
                         <div align="center">
@@ -94,38 +99,41 @@
                                     <p:outputLabel value="ID"/>
                                     <p:inputText value="#{controleCondominio.objeto.id}" readonly="true"
                                                  size="6"/>
-                                    <p:outputLabel value="Data" for="txtData"/>
-                                    <p:calendar id="txtData" value="#{controleCondominio.objeto.data}"
-                                                pattern="dd/mm/yyyy" mask="true" locale="pt_BR"
-                                                navigator="true">
-                                        <f:converter converterId="converterCalendar"/>
-
-                                    </p:calendar>
-                                    <p:outputLabel value="Nota" for="txtNota"/>
-                                    <p:inputText id="txtNota" value="#{controleCondominio.objeto.nota}"
+                                    
+                                    <p:outputLabel value="Nome" for="txtNome"/>
+                                    <p:inputText id="txtNome" value="#{controleCondominio.objeto.nome}"
                                                  size="20" maxlength="20"
                                                  placeholder="Obrigatório"/>
-                                    <p:outputLabel value="Valor total" for="txtValorTotal"/>
-                                    <p:inputNumber id="txtValorTotal"
-                                                   value="#{controleCondominio.objeto.valorTotal}"
+                                   
+                                    <p:outputLabel value="Endereco" for="txtEndereco"/>
+                                    <p:inputText id="txtEndereco" value="#{controleCondominio.objeto.endereco}"
+                                                 size="50" maxlength="40"
+                                                 placeholder="Obrigatório"/>
+                                    
+                                    <p:outputLabel value="Numero" for="txtNumero"/>
+                                    <p:inputNumber id="txtNumero"
+                                                   value="#{controleCondominio.objeto.numero}"
                                                    size="12" maxlength="12"
-                                                   decimalPlaces="2" decimalSeparator="."
-                                                   thousandSeparator=""
-                                                   symbol="R$"/>
-                                    <p:outputLabel value="Pessoa juridica" for="selectPessoaJuridica"/>
-                                    <p:selectOneMenu id="selectPessoaJuridica"
-                                                     value="#{controleCondominio.objeto.pessoaJuridica}">
-                                        <f:converter converterId="converterPessoaJuridica"/>
+                                                  />
+                                    <p:outputLabel value="Cep" for="txtCep"/>
+                                    <p:inputNumber id="txtCep"
+                                                   value="#{controleCondominio.objeto.cep}"
+                                                   size="12" maxlength="12"
+                                                  />
+                                    <p:outputLabel value="UnidadeCondominial" for="selectUnidadeCondominial"/>
+                                    <p:selectOneMenu id="selectUnidadeCondominial"
+                                                     value="#{controleCondominio.objeto.unidadeCondominial}">
+                                        <f:converter converterId="ConverterUnidadeCondominial"/>
                                         <f:selectItem itemLabel="Selecione um registro"
                                                       noSelectionOption="true"/>
-                                        <f:selectItems value="#{controleCondominio.pessoaJuridicaDAO.listaTodos}"
-                                                       var="pj" itemLabel="#{pj.nome}"/>
+                                        <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
+                                                       var="uc" itemLabel="#{uc.nome}"/>
                                     </p:selectOneMenu>
                                 </p:panelGrid>    
                             </div>
                         </p:tab>
-                        <p:tab title="Itens da Condominio">
-                            <p:dataTable value="#{controleCondominio.objeto.condominioItens}"
+                        <p:tab title="Unidades do Condominio">
+                            <p:dataTable value="#{controleCondominio.objeto.unidadeCondominial}"
                                          var="item" rowIndexVar="idx" id="listaItens">
                                 <f:facet name="header">
                                     <p:commandButton value="Novo item"
@@ -141,20 +149,20 @@
 
 
                                 </f:facet>
-                                <p:column headerText="Produto">
-                                    <p:outputLabel value="#{item.produto.nome}"/>
+                                <p:column headerText="Nome">
+                                    <p:outputLabel value="#{item.nome}"/>
 
                                 </p:column>
-                                <p:column headerText="Quantidade">
-                                    <p:outputLabel value="#{item.quantidade}"/>
+                                <p:column headerText="Endereco">
+                                    <p:outputLabel value="#{item.endereco}"/>
 
                                 </p:column>
-                                <p:column headerText="Valor Unitario">
-                                    <p:outputLabel value="#{item.valorUnitario}"/>
+                                <p:column headerText="Numero">
+                                    <p:outputLabel value="#{item.numero}"/>
 
                                 </p:column>
-                                <p:column headerText="Valor total">
-                                    <p:outputLabel value="#{item.valorTotal}"/>
+                                <p:column headerText="Cep">
+                                    <p:outputLabel value="#{item.cep}"/>
 
                                 </p:column>
                                 <p:column headerText="Ações">
@@ -200,27 +208,26 @@
 
                             </div>    
                         </f:facet>
-                        <p:outputLabel value="Produto" for="selectProduto"/>
-                        <p:selectOneMenu value="#{controleCondominio.item.produto}"
-                                         id="selectProduto">
-                            <f:converter converterId="converterProduto"/>
+                        <p:outputLabel value="UnidadeCondominial" for="selectUnidade"/>
+                        <p:selectOneMenu value="#{controleCondominio.item.condominio}"
+                                         id="selectUnidadeCondominial">
+                            <f:converter converterId="converterConverterUnidadeCondominial"/>
                             <f:selectItem itemLabel="Selecione um registro"
                                           noSelectionOption="true"/>
-                            <f:selectItems value="#{controleCondominio.produtoDAO.listaTodos}"
+                            <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
                                            var="p" itemLabel="#{p.nome}"/>
-                            <p:ajax listener="#{controleCondominio.atualizaValorTotalItem()}"
-                                    update="txtValorUnitario"/>
+                           
         
                         </p:selectOneMenu>
-                        <p:outputLabel value="Quantidade" for="txtQuantidade"/>
-                        <p:inputNumber id="txtQuantidade" value="#{controleCondominio.item.quantidade}"
-                                       decimalPlaces="2" decimalSeparator="." thousandSeparator=""/>
-                        <p:outputLabel value="Valor Unitario" for="txtValorUnitario"/>
-                        <p:inputNumber id="txtValorUnitario" value="#{controleCondominio.item.valorUnitario}"
-                                       decimalPlaces="2" decimalSeparator="." thousandSeparator=""/>
-                        <p:outputLabel value="Valor Total" for="txtValorTotal"/>
-                        <p:inputNumber id="txtValorTotal" value="#{controleCondominio.item.valorTotal}"
-                                       decimalPlaces="2" decimalSeparator="." thousandSeparator=""/>
+                        <p:outputLabel value="Endereco" for="txtEndereco"/>
+                        <p:inputNumber id="txtEndereco" value="#{controleCondominio.item.endereco}"
+                                       />
+                        <p:outputLabel value="Numero" for="txtNumero"/>
+                        <p:inputNumber id="txtNumero" value="#{controleCondominio.item.numero}"
+                                       />
+                        <p:outputLabel value="Cep" for="txtCep"/>
+                        <p:inputNumber id="txtCep" value="#{controleCondominio.item.cep}"
+                                       />
 
 
                     </p:panelGrid>
