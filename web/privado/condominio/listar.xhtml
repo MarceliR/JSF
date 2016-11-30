@@ -124,15 +124,8 @@
                                                    value="#{controleCondominio.objeto.cep}"
                                                    size="12" maxlength="12"
                                                   />
-                                    <p:outputLabel value="UnidadeCondominial" for="selectUnidadeCondominial"/>
-                                    <p:selectOneMenu id="selectUnidadeCondominial"
-                                                     value="#{controleCondominio.objeto.unidadeCondominial}">
-                                        <f:converter converterId="converterUnidadeCondominial"/>
-                                        <f:selectItem itemLabel="Selecione um registro"
-                                                      noSelectionOption="true"/>
-                                        <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
-                                                       var="uc" itemLabel="#{uc.descricao}"/>
-                                    </p:selectOneMenu>
+                                    
+                                    
                                 </p:panelGrid>    
                             </div>
                         </p:tab>
@@ -153,20 +146,20 @@
 
 
                                 </f:facet>
-                                <p:column headerText="Nome">
-                                    <p:outputLabel value="#{item.nome}"/>
-
-                                </p:column>
-                                <p:column headerText="Endereco">
-                                    <p:outputLabel value="#{item.endereco}"/>
-
-                                </p:column>
                                 <p:column headerText="Numero">
                                     <p:outputLabel value="#{item.numero}"/>
 
                                 </p:column>
-                                <p:column headerText="Cep">
-                                    <p:outputLabel value="#{item.cep}"/>
+                                <p:column headerText="Descricao">
+                                    <p:outputLabel value="#{item.descricao}"/>
+
+                                </p:column>
+                                <p:column headerText="Area">
+                                    <p:outputLabel value="#{item.area}"/>
+
+                                </p:column>
+                                <p:column headerText="Numero do Quarto">
+                                    <p:outputLabel value="#{item.numeroQuarto}"/>
 
                                 </p:column>
                                 <p:column headerText="Ações">
