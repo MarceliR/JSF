@@ -23,7 +23,7 @@
                             <f:selectItem itemLabel="Endereco" itemValue="endereco"/>
                             <f:selectItem itemLabel="Numero" itemValue="numero"/>
                             <f:selectItem itemLabel="Cep" itemValue="cep"/>
-                            
+
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Filtro:"/>
@@ -103,29 +103,29 @@
                                     <p:outputLabel value="ID"/>
                                     <p:inputText value="#{controleCondominio.objeto.id}" readonly="true"
                                                  size="6"/>
-                                    
+
                                     <p:outputLabel value="Nome" for="txtNome"/>
                                     <p:inputText id="txtNome" value="#{controleCondominio.objeto.nome}"
                                                  size="20" maxlength="20"
                                                  placeholder="Obrigatório"/>
-                                   
+
                                     <p:outputLabel value="Endereco" for="txtEndereco"/>
                                     <p:inputText id="txtEndereco" value="#{controleCondominio.objeto.endereco}"
                                                  size="50" maxlength="40"
                                                  placeholder="Obrigatório"/>
-                                    
+
                                     <p:outputLabel value="Numero" for="txtNumero"/>
                                     <p:inputNumber id="txtNumero"
                                                    value="#{controleCondominio.objeto.numero}"
                                                    size="12" maxlength="12"
-                                                  />
+                                                   />
                                     <p:outputLabel value="Cep" for="txtCep"/>
                                     <p:inputNumber id="txtCep"
                                                    value="#{controleCondominio.objeto.cep}"
                                                    size="12" maxlength="12"
-                                                  />
-                                    
-                                    
+                                                   />
+
+
                                 </p:panelGrid>    
                             </div>
                         </p:tab>
@@ -205,17 +205,26 @@
 
                             </div>    
                         </f:facet>
-                       
+                        <p:outputLabel value="Pessoa" for="selectPessoa"/>
+                        <p:selectOneMenu value="#{controleCondominio.item.pessoa}"
+                                         id="selectPessoa">
+                            <f:converter converterId="converterPessoa"/>
+                            <f:selectItem itemLabel="Selecione um registro"
+                                          noSelectionOption="true"/>
+                            <f:selectItems value="#{controleCondominio.pessoaDAO.listaTodos}"
+                                           var="p" itemLabel="#{p.nome}"/>
+                           
+        
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Numero" for="txtNumero"/>
+                        <p:inputText id="txtNumero" value="#{controleCondominio.item.numero}"   />
                         <p:outputLabel value="Descricao" for="txtDescricao"/>
                         <p:inputText id="txtDescricao" value="#{controleCondominio.item.descricao}"
-                                       />
-                        <p:outputLabel value="Numero" for="txtNumero"/>
-                        <p:inputText id="txtNumero" value="#{controleCondominio.item.numero}"
-                                       />
+                                     />
                         <p:outputLabel value="Area" for="txtArea"/>
                         <p:inputNumber id="txtArea" value="#{controleCondominio.item.area}"
                                        />
-                        
                         <p:outputLabel value="NumeroQuarto" for="txtNumeroQuarto"/>
                         <p:inputNumber id="txtNumeroQuarto" value="#{controleCondominio.item.numeroQuarto}"
                                        />

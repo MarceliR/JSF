@@ -6,7 +6,7 @@
 package br.edu.ifsul.converters;
 
 import br.edu.ifsul.jpa.EntityManagerUtil;
-import br.edu.ifsul.modelo.UnidadeCondominial;
+import br.edu.ifsul.modelo.Pessoa;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,8 +17,8 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Marcely
  */
-@FacesConverter(value = "converterUnidadeCondominial")
-public class ConverterUnidadeCondominial implements Serializable, Converter{
+@FacesConverter(value = "converterPessoa")
+public class ConverterPessoa implements Serializable, Converter{
 
     //método que converte da tela para objeto
     @Override
@@ -27,7 +27,7 @@ public class ConverterUnidadeCondominial implements Serializable, Converter{
            return null;
        }
        try{
-           return EntityManagerUtil.getEntityManager().find(UnidadeCondominial.class,
+           return EntityManagerUtil.getEntityManager().find(Pessoa.class,
                    Integer.parseInt(string));
        }catch (Exception e){
            return null;
@@ -39,7 +39,7 @@ public class ConverterUnidadeCondominial implements Serializable, Converter{
         if(o==null){
             return null;
         }
-        UnidadeCondominial obj = (UnidadeCondominial) o;
+        Pessoa obj = (Pessoa) o;
         return obj.getId().toString();
     }
     

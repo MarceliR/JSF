@@ -6,6 +6,8 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.PessoaDAO;
+
+
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.util.UtilMensagens;
 import java.io.Serializable;
@@ -20,11 +22,14 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControlePessoa implements Serializable{
     
-    private PessoaDAO dao;
+    private PessoaDAO<Pessoa> dao;
     private Pessoa objeto;
+ 
+    
     
     public ControlePessoa(){
-        dao = new PessoaDAO();
+        dao = new PessoaDAO<>();
+      
     }
     
     public String listar(){
@@ -33,23 +38,29 @@ public class ControlePessoa implements Serializable{
     }
     
     public String novo(){
-        objeto = new Pessoa();
+        setObjeto(new Pessoa());
         return "formulario";
         
     }
     
     public String salvar(){
-        if (dao.salvar(objeto)){
-            UtilMensagens.mensagemInformacao("Sucesso ao persistir!");
+        boolean persistiu;
+        if (getObjeto().getId() == null){
+            persistiu = getDao().persist(getObjeto());
+        }else{
+            persistiu = getDao().merge(getObjeto());
+        }
+        if (persistiu){
+            UtilMensagens.mensagemInformacao(getDao().getMensagem());
             return "listar";
         }else{
-            UtilMensagens.mensagemErro(dao.getMensagem());
+            UtilMensagens.mensagemErro(getDao().getMensagem());
             return "formulario";
         }
     }
     
     public String cancelar(){
-        objeto = null;
+        setObjeto(null);
         return "listar";
     }
     
@@ -60,10 +71,10 @@ public class ControlePessoa implements Serializable{
     
     public void remover(Integer id){
         objeto = dao.localizar(id);
-        if (dao.remover(objeto)){
-            UtilMensagens.mensagemInformacao(dao.getMensagem());
+       if (dao.remove(objeto)){
+            UtilMensagens.mensagemInformacao(getDao().getMensagem());
         }else{
-            UtilMensagens.mensagemErro(dao.getMensagem());
+            UtilMensagens.mensagemErro(getDao().getMensagem());
         }
     }
 
@@ -82,8 +93,10 @@ public class ControlePessoa implements Serializable{
     public void setObjeto(Pessoa objeto) {
         this.objeto = objeto;
     }
-    
-    
-    
+
+    /**
+     * @return the daoEstado
+     */
+  
     
 }

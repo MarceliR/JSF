@@ -6,9 +6,11 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.CondominioDAO;
+import br.edu.ifsul.dao.PessoaDAO;
 import br.edu.ifsul.dao.UnidadeCondominialDAO;
 
 import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.UnidadeCondominial;
 
 
@@ -29,6 +31,7 @@ public class ControleCondominio implements Serializable{
     private Condominio objeto;
     private UnidadeCondominialDAO<UnidadeCondominial> unidadeCondominialDAO;
     private UnidadeCondominial item;
+    private PessoaDAO<Pessoa> pessoaDAO;
    
     private Boolean novoItem;
     
@@ -121,6 +124,13 @@ public class ControleCondominio implements Serializable{
 
     public void setObjeto(Condominio objeto) {
         this.objeto = objeto;
+    }
+    public PessoaDAO<Pessoa> getPessoaDAO() {
+        return pessoaDAO;
+    }
+
+    public void setPessoaDAO(PessoaDAO<Pessoa> pessoaDAO) {
+        this.pessoaDAO = pessoaDAO;
     }
 
     /**
