@@ -187,7 +187,7 @@
                 </h:form>
                 <ui:include src="/templates/ajaxstatus.xhtml"/>
             </p:dialog>
-            <p:dialog widgetVar="dlgItem" header="Edição de Itens da Condominio" resizable="false"
+            <p:dialog widgetVar="dlgItem" header="Edição de Itens do Condominio" resizable="false"
                       modal="true">
                 <h:form id="formItem">
                     <p:growl/>
@@ -205,22 +205,12 @@
 
                             </div>    
                         </f:facet>
-                        <p:outputLabel value="UnidadeCondominial" for="selectUnidadeCondominial"/>
-                        <p:selectOneMenu value="#{controleCondominio.item.condominio}"
-                                         id="selectUnidadeCondominial">
-                            <f:converter converterId="converterUnidadeCondominial"/>
-                            <f:selectItem itemLabel="Selecione um registro"
-                                          noSelectionOption="true"/>
-                            <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
-                                           var="p" itemLabel="#{p.descricao}"/>
-                           
-        
-                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="Descricao" for="txtDescricao"/>
-                        <p:inputNumber id="txtDescricao" value="#{controleCondominio.item.descricao}"
+                        <p:inputText id="txtDescricao" value="#{controleCondominio.item.descricao}"
                                        />
                         <p:outputLabel value="Numero" for="txtNumero"/>
-                        <p:inputNumber id="txtNumero" value="#{controleCondominio.item.numero}"
+                        <p:inputText id="txtNumero" value="#{controleCondominio.item.numero}"
                                        />
                         <p:outputLabel value="Area" for="txtArea"/>
                         <p:inputNumber id="txtArea" value="#{controleCondominio.item.area}"
