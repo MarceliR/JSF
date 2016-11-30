@@ -18,8 +18,12 @@
                         <p:outputLabel value="Ordem: "/>
                         <p:selectOneMenu value="#{controleCondominio.dao.ordem}">
                             <f:selectItem itemLabel="ID" itemValue="id"/>
-                            <f:selectItem itemLabel="PessoanJuridica" itemValue="pessoaJuridica.nome"/>
-                            <f:selectItem itemLabel="Nota" itemValue="nota"/>
+                            <f:selectItem itemLabel="UnidadeCondominial" itemValue="unidadeCondominial.descricao"/>
+                            <f:selectItem itemLabel="Nome" itemValue="nome"/>
+                            <f:selectItem itemLabel="Endereco" itemValue="endereco"/>
+                            <f:selectItem itemLabel="Numero" itemValue="numero"/>
+                            <f:selectItem itemLabel="Cep" itemValue="cep"/>
+                            
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Filtro:"/>
@@ -123,11 +127,11 @@
                                     <p:outputLabel value="UnidadeCondominial" for="selectUnidadeCondominial"/>
                                     <p:selectOneMenu id="selectUnidadeCondominial"
                                                      value="#{controleCondominio.objeto.unidadeCondominial}">
-                                        <f:converter converterId="ConverterUnidadeCondominial"/>
+                                        <f:converter converterId="converterUnidadeCondominial"/>
                                         <f:selectItem itemLabel="Selecione um registro"
                                                       noSelectionOption="true"/>
                                         <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
-                                                       var="uc" itemLabel="#{uc.nome}"/>
+                                                       var="uc" itemLabel="#{uc.descricao}"/>
                                     </p:selectOneMenu>
                                 </p:panelGrid>    
                             </div>
@@ -178,7 +182,7 @@
                                                          actionListener="#{controleCondominio.removerItem(index)}"
                                                          process="btnRemoverItem"
                                                          update="listaItens :formEdicao:growl
-                                                         :formEdicao:tab:txtValorTotal"/>
+                                                         :formEdicao:tab:txtNome"/>
 
                                     </div>
                                 </p:column>     
@@ -201,32 +205,36 @@
                                                  value="Salvar" icon="ui-icon-disk"
                                                  actionListener="#{controleCondominio.salvarItem()}"
                                                  update=":formEdicao:growl :formItem
-                                                 :formEdicao:tab:listaItens :formEdicao:tab:txtValorTotal"
+                                                 :formEdicao:tab:listaItens :formEdicao:tab:txtNome"
                                                  process="@form"
                                                  oncomplete="if (!args.validationFailed){PF('dlgItem').hide();}"/>
 
 
                             </div>    
                         </f:facet>
-                        <p:outputLabel value="UnidadeCondominial" for="selectUnidade"/>
+                        <p:outputLabel value="UnidadeCondominial" for="selectUnidadeCondominial"/>
                         <p:selectOneMenu value="#{controleCondominio.item.condominio}"
                                          id="selectUnidadeCondominial">
-                            <f:converter converterId="converterConverterUnidadeCondominial"/>
+                            <f:converter converterId="converterUnidadeCondominial"/>
                             <f:selectItem itemLabel="Selecione um registro"
                                           noSelectionOption="true"/>
                             <f:selectItems value="#{controleCondominio.condominialDAO.listaTodos}"
-                                           var="p" itemLabel="#{p.nome}"/>
+                                           var="p" itemLabel="#{p.descricao}"/>
                            
         
                         </p:selectOneMenu>
-                        <p:outputLabel value="Endereco" for="txtEndereco"/>
-                        <p:inputNumber id="txtEndereco" value="#{controleCondominio.item.endereco}"
+                        <p:outputLabel value="Descricao" for="txtDescricao"/>
+                        <p:inputNumber id="txtDescricao" value="#{controleCondominio.item.descricao}"
                                        />
                         <p:outputLabel value="Numero" for="txtNumero"/>
                         <p:inputNumber id="txtNumero" value="#{controleCondominio.item.numero}"
                                        />
-                        <p:outputLabel value="Cep" for="txtCep"/>
-                        <p:inputNumber id="txtCep" value="#{controleCondominio.item.cep}"
+                        <p:outputLabel value="Area" for="txtArea"/>
+                        <p:inputNumber id="txtArea" value="#{controleCondominio.item.area}"
+                                       />
+                        
+                        <p:outputLabel value="NumeroQuarto" for="txtNumeroQuarto"/>
+                        <p:inputNumber id="txtNumeroQuarto" value="#{controleCondominio.item.numeroQuarto}"
                                        />
 
 
