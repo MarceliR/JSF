@@ -63,7 +63,7 @@ public class ControleCondominio implements Serializable{
     public ControleCondominio(){
         dao = new CondominioDAO<>();
         unidadeCondominialDAO = new UnidadeCondominialDAO<>();
-      
+        pessoaDAO = new PessoaDAO<>();
         
     }
     
