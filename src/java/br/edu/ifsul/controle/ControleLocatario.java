@@ -5,6 +5,7 @@
  */
 package br.edu.ifsul.controle;
 
+
 import br.edu.ifsul.dao.LocatarioDAO;
 import br.edu.ifsul.modelo.Locatario;
 import br.edu.ifsul.util.UtilMensagens;
@@ -20,11 +21,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControleLocatario implements Serializable{
     
-    private LocatarioDAO dao;
+    private LocatarioDAO<Locatario> dao;
     private Locatario objeto;
+   
     
     public ControleLocatario(){
-        dao = new LocatarioDAO();
+        dao = new LocatarioDAO<>();
+       
     }
     
     public String listar(){
@@ -33,23 +36,29 @@ public class ControleLocatario implements Serializable{
     }
     
     public String novo(){
-        objeto = new Locatario();
+        setObjeto(new Locatario());
         return "formulario";
         
     }
     
     public String salvar(){
-        if (dao.salvar(objeto)){
-            UtilMensagens.mensagemInformacao("Sucesso ao persistir!");
+        boolean persistiu;
+        if (getObjeto().getId() == null){
+            persistiu = getDao().persist(getObjeto());
+        }else{
+            persistiu = getDao().merge(getObjeto());
+        }
+        if (persistiu){
+            UtilMensagens.mensagemInformacao(getDao().getMensagem());
             return "listar";
         }else{
-            UtilMensagens.mensagemErro(dao.getMensagem());
+            UtilMensagens.mensagemErro(getDao().getMensagem());
             return "formulario";
         }
     }
     
     public String cancelar(){
-        objeto = null;
+        setObjeto(null);
         return "listar";
     }
     
@@ -60,10 +69,10 @@ public class ControleLocatario implements Serializable{
     
     public void remover(Integer id){
         objeto = dao.localizar(id);
-        if (dao.remover(objeto)){
-            UtilMensagens.mensagemInformacao(dao.getMensagem());
+       if (dao.remove(objeto)){
+            UtilMensagens.mensagemInformacao(getDao().getMensagem());
         }else{
-            UtilMensagens.mensagemErro(dao.getMensagem());
+            UtilMensagens.mensagemErro(getDao().getMensagem());
         }
     }
 
@@ -82,7 +91,11 @@ public class ControleLocatario implements Serializable{
     public void setObjeto(Locatario objeto) {
         this.objeto = objeto;
     }
-    
+
+    /**
+     * @return the daoEstado
+     */
+  
     
     
     
